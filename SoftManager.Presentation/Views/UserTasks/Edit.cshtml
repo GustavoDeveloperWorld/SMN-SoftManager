@@ -1,0 +1,57 @@
+﻿@model SoftManager.Domain.Entities.UserTask
+
+@{
+    ViewData["Title"] = "Editar Tarefa";
+}
+
+<h1 class="text-2xl font-bold text-gray-800 text-center mt-6">Editar Tarefa</h1>
+
+<h4 class="text-lg font-semibold text-gray-800 mt-6">Detalhes da Tarefa</h4>
+<hr class="mb-4" />
+
+<div class="max-w-2xl mx-auto">
+    <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-red-500 mb-4"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-4">
+            <label asp-for="Message" class="block text-gray-700 font-medium">Mensagem</label>
+            <input asp-for="Message" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="Message" class="text-red-500 mt-1 block"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="DueDate" class="block text-gray-700 font-medium">Data Limite</label>
+            <input asp-for="DueDate" type="date" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="DueDate" class="text-red-500 mt-1 block"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ApplicationUserId" class="block text-gray-700 font-medium">Usuário</label>
+            <select asp-for="ApplicationUserId" asp-items="ViewBag.ApplicationUserId" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none"></select>
+            <span asp-validation-for="ApplicationUserId" class="text-red-500 mt-1 block"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="IsCompleted" class="block text-gray-700 font-medium">Concluído</label>
+            <input asp-for="IsCompleted" type="checkbox" class="mt-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="CompletionDate" class="block text-gray-700 font-medium">Data de Conclusão</label>
+            <input asp-for="CompletionDate" type="date" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="CompletionDate" class="text-red-500 mt-1 block"></span>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <input type="submit" value="Salvar" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300" />
+            <a asp-action="Index" class="text-gray-600 hover:text-gray-900">Voltar para a Lista</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SoftManager</title>
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SoftManager.Presentation.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-gray-50">
+
+    <header>
+        <nav class="bg-white border-b border-gray-300 py-2">
+            <div class="container mx-auto px-6 flex justify-between items-center">
+                <div class="flex items-center space-x-6">
+                    <a class="text-lg font-bold text-gray-800" asp-area="" asp-controller="Home" asp-action="Index">SoftManager</a>
+                    <a asp-controller="UserTasks" asp-action="Index" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Tarefas</a>
+                </div>
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto py-8">
+        <main role="main" class="pb-6">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-gray-100 border-t border-gray-300 py-4">
+        <div class="container">
+            <p class="text-center text-sm text-gray-600">
+                &copy; 2024 - SoftManager -
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-gray-600 hover:text-gray-800">Privacy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

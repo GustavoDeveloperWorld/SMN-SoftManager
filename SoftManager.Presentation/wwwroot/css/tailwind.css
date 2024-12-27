@@ -1,0 +1,18 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-primary {
+        @apply bg-blue-500 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-blue-700;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-gray-300;
+    }
+
+    .btn-link {
+        @apply text-blue-500 font-medium underline transition duration-300 ease-in-out hover:text-blue-700;
+    }
+}
+
