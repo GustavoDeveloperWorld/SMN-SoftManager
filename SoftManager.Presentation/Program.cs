@@ -29,11 +29,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<InfraDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ManagerOnly", policy =>
+        policy.RequireClaim("IsManager", "true"));
+});
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ITempUserStorage, TempUserStorage>();
-
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 

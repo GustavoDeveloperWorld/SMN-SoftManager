@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftManager.Infrastructure.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using SoftManager.Infrastructure.Persistence.Contexts;
 namespace SoftManager.Infrastructure.Migrations
 {
     [DbContext(typeof(InfraDbContext))]
-    partial class InfraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250101133842_addingNewProperties")]
+    partial class addingNewProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,10 +272,6 @@ namespace SoftManager.Infrastructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("Message")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("Task")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");

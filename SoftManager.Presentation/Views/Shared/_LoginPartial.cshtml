@@ -3,15 +3,19 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav flex space-x-4">
+<ul class="navbar-nav flex items-center space-x-4">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Olá @User.Identity?.Name!</a>
+            <a class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300 inline-flex items-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Olá, @User.Identity?.Name!
+            </a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Sair</button>
+            <form class="form-inline inline-flex items-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">
+                    Sair
+                </button>
             </form>
         </li>
     }

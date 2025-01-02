@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using SoftManager.Infrastructure.Persistence.Contexts;
 
 namespace SoftManager.Presentation.Controllers
 {
+    [Authorize]
     public class UserTasksController : Controller
     {
         private readonly InfraDbContext _context;
@@ -45,6 +47,7 @@ namespace SoftManager.Presentation.Controllers
             return View(userTask);
         }
 
+        [Authorize(Policy = "ManagerOnly")]
         // GET: UserTasks/Create
         public IActionResult Create()
         {
@@ -57,7 +60,7 @@ namespace SoftManager.Presentation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Message,DueDate,ApplicationUserId,IsCompleted,CompletionDate")] UserTask userTask)
+        public async Task<IActionResult> Create([Bind("Id,Task,Message,DueDate,ApplicationUserId,IsCompleted,CompletionDate")] UserTask userTask)
         {
             userTask.ApplicationUser = await _context.Users
                 .FirstOrDefaultAsync(u => u.Id == userTask.ApplicationUserId);
@@ -101,7 +104,7 @@ namespace SoftManager.Presentation.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Message,DueDate,ApplicationUserId,IsCompleted,CompletionDate")] UserTask userTask)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Task,Message,DueDate,ApplicationUserId,IsCompleted,CompletionDate")] UserTask userTask)
         {
             if (id != userTask.Id)
             {
@@ -152,6 +155,7 @@ namespace SoftManager.Presentation.Controllers
         }
 
         // POST: UserTasks/Delete/5
+        [Authorize(Policy = "ManagerOnly")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

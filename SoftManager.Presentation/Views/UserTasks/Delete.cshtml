@@ -1,42 +1,46 @@
 ﻿@model SoftManager.Domain.Entities.UserTask
 
 @{
-    ViewData["Title"] = "Excluir Tarefa";
+	ViewData["Title"] = "Excluir Tarefa";
 }
 
 <h1 class="text-2xl font-bold text-gray-800 text-center mt-6">Excluir Tarefa</h1>
 <hr class="mb-4" />
 
 <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
-    <h3 class="text-lg text-red-600 font-semibold text-center mb-4">Você tem certeza que deseja excluir esta tarefa?</h3>
-    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <div>
-            <dt class="text-gray-700 font-medium">Mensagem</dt>
-            <dd class="text-gray-900">@Model.Message</dd>
-        </div>
-        <div>
-            <dt class="text-gray-700 font-medium">Data Limite</dt>
-            <dd class="text-gray-900">@Model.DueDate.ToString("dd/MM/yyyy")</dd>
-        </div>
-        <div>
-            <dt class="text-gray-700 font-medium">Usuário</dt>
-            <dd class="text-gray-900">@Model.ApplicationUser?.UserName</dd>
-        </div>
-        <div>
-            <dt class="text-gray-700 font-medium">Concluído</dt>
-            <dd class="text-gray-900">@((Model.IsCompleted) ? "Sim" : "Não")</dd>
-        </div>
-        <div>
-            <dt class="text-gray-700 font-medium">Data de Conclusão</dt>
-            <dd class="text-gray-900">
-                @(Model.CompletionDate.HasValue ? Model.CompletionDate.Value.ToString("dd/MM/yyyy") : "N/A")
-            </dd>
-        </div>
-    </dl>
-
-    <form asp-action="Delete" method="post" class="flex justify-between items-center">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Excluir" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300" />
-        <a asp-action="Index" class="text-gray-600 hover:text-gray-900">Voltar para a Lista</a>
-    </form>
+	<h3 class="text-lg text-red-600 font-semibold text-center mb-4">Você tem certeza que deseja excluir esta tarefa?</h3>
+	<dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+		<div>
+			<dt class="text-gray-700 font-medium">Tarefa</dt>
+			<dd class="text-gray-900">@Model.Task</dd>
+		</div>
+		<div>
+			<dt class="text-gray-700 font-medium">Data Limite</dt>
+			<dd class="text-gray-900">@Model.DueDate.ToString("dd/MM/yyyy")</dd>
+		</div>
+		<div>
+			<dt class="text-gray-700 font-medium">Usuário</dt>
+			<dd class="text-gray-900">@Model.ApplicationUser?.UserName</dd>
+		</div>
+		<div>
+			<dt class="text-gray-700 font-medium">Concluído</dt>
+			<dd class="text-gray-900">@((Model.IsCompleted) ? "Sim" : "Não")</dd>
+		</div>
+		<div>
+			<dt class="text-gray-700 font-medium">Data de Conclusão</dt>
+			<dd class="text-gray-900">
+				@(Model.CompletionDate.HasValue ? Model.CompletionDate.Value.ToString("dd/MM/yyyy") : "N/A")
+			</dd>
+		</div>
+		<div>
+			<dt class="text-gray-700 font-medium">Mensagem</dt>
+			<dd class="text-gray-900">@Model.Message</dd>
+		</div>
+	</dl>
+	<br />
+	<form asp-action="Delete" method="post" class="flex justify-between items-center">
+		<input type="hidden" asp-for="Id" />
+		<input type="submit" value="Excluir" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300" />
+		<a asp-action="Index" class="text-gray-600 hover:text-gray-900">Voltar para a Lista</a>
+	</form>
 </div>

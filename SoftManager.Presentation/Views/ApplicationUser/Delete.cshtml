@@ -1,0 +1,29 @@
+﻿@model SoftManager.Domain.Entities.ApplicationUser
+@{
+	ViewData["Title"] = "Excluir Funcionário";
+}
+
+<div class="container mx-auto px-4 py-8">
+	<div class="bg-white shadow-lg rounded-lg">
+		<div class="p-6">
+			<h2 class="text-xl font-bold text-gray-800 mb-4">Excluir Funcionário</h2>
+
+			<form asp-action="DeleteConfirmed" method="post">
+				<input type="hidden" name="id" value="@Model.Id" />
+				<div class="mb-4">
+					<p class="text-gray-700">Tem certeza de que deseja excluir o funcionário <strong>@Model.FullName</strong>?</p>
+				</div>
+				<br />
+				<div class="flex items-center justify-end space-x-4">
+					<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
+						Excluir
+					</button>
+					<a href="@Url.Action("Index")" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">
+						Cancelar
+					</a>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>

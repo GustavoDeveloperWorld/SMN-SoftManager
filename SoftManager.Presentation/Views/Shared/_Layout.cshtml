@@ -16,6 +16,8 @@
                 <div class="flex items-center space-x-6">
                     <a class="text-lg font-bold text-gray-800" asp-area="" asp-controller="Home" asp-action="Index">SoftManager</a>
                     <a asp-controller="UserTasks" asp-action="Index" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Tarefas</a>
+                    <a asp-controller="ApplicationUser" asp-action="Create" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Cadastro de Funcionários</a>
+                    <a asp-controller="ApplicationUser" asp-action="Index" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Lista de Funcionários</a>
                 </div>
                 <div>
                     <partial name="_LoginPartial" />

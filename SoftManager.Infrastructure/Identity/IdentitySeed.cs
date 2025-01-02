@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SoftManager.Domain.Entities;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SoftManager.Infrastructure.Identity
@@ -8,14 +9,14 @@ namespace SoftManager.Infrastructure.Identity
     {
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (!await roleManager.RoleExistsAsync("Admin"))
-            {
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
-            }
+            var roles = new[] { "Admin", "User", "Funcionario" };
 
-            if (!await roleManager.RoleExistsAsync("User"))
+            foreach (var role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole("User"));
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
             }
 
             var defaultUserEmail = "admin@softmanager.com";
@@ -30,14 +31,11 @@ namespace SoftManager.Infrastructure.Identity
                     Email = defaultUserEmail,
                     EmailConfirmed = true,
                     IsManager = true,
-                    FullName = "Admin SMN", 
+                    FullName = "Admin SMN",
                     Address = "Rua Professora Cristina Di Lorenzo Marscicano, 155, João Pessoa - PB.",
                     BirthDate = DateTime.Now,
                     Mobile = "(11) 96414-1597",
-                    PhoneNumber = "1234567890", 
-                    
-                    
-                    
+                    PhoneNumber = "1234567890",
                 };
 
                 var result = await userManager.CreateAsync(defaultUser, defaultUserPassword);
@@ -45,12 +43,25 @@ namespace SoftManager.Infrastructure.Identity
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(defaultUser, "Admin");
+
+                    await userManager.AddClaimAsync(defaultUser, new Claim("IsManager", "true"));
                 }
                 else
                 {
                     throw new System.Exception($"Erro ao criar usuário padrão: {string.Join(", ", result.Errors.Select(e => e.Description))}");
                 }
             }
+            else
+            {
+                var hasManagerClaim = (await userManager.GetClaimsAsync(userExists))
+                    .Any(c => c.Type == "IsManager" && c.Value == "true");
+
+                if (!hasManagerClaim)
+                {
+                    await userManager.AddClaimAsync(userExists, new Claim("IsManager", "true"));
+                }
+            }
         }
+
     }
 }

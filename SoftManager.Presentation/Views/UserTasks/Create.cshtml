@@ -13,25 +13,37 @@
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium">Mensagem</label>
-            <input asp-for="Message" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
-            <span asp-validation-for="Message" class="text-danger mt-1 block"></span>
+            <label class="block text-gray-700 font-medium">Tarefa</label>
+            <input asp-for="Task" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="Task" class="text-danger mt-1 block"></span>
         </div>
+
+        
         <div class="mb-4">
             <label class="block text-gray-700 font-medium">Data Limite</label>
             <input asp-for="DueDate" type="date" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
             <span asp-validation-for="DueDate" class="text-danger mt-1 block"></span>
         </div>
+
         <div class="mb-4">
             <label class="block text-gray-700 font-medium">Usuário Responsável</label>
             <select asp-for="ApplicationUserId" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" asp-items="ViewBag.ApplicationUserId"></select>
             <span asp-validation-for="ApplicationUserId" class="text-danger mt-1 block"></span>
         </div>
+
         <div class="mb-4">
             <label class="block text-gray-700 font-medium">Data de Conclusão</label>
             <input asp-for="CompletionDate" type="date" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
             <span asp-validation-for="CompletionDate" class="text-danger mt-1 block"></span>
         </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium">Mensagem</label>
+            <input asp-for="Message" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="Message" class="text-danger mt-1 block"></span>
+        </div>
+
+        <br/>
         <div class="flex items-center justify-between">
             <input type="submit" value="Criar" class="btn btn-primary" />
             <a asp-action="Index" class="text-gray-600 hover:text-gray-900">Voltar para a Lista</a>

@@ -30,13 +30,13 @@
         <button id="login-submit" type="submit" class="btn-primary w-full">Entrar</button>
 
         <div class="mt-4 text-center">
-            <a id="forgot-password" asp-page="./ForgotPassword" class="btn-link">Esqueceu sua senha?</a>
+            <a id="forgot-password" asp-page="./ForgotPassword" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Esqueceu sua senha?</a>
         </div>
         <div class="mt-2 text-center">
-            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn-link">Registre-se como um novo usuário</a>
+            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Registre-se como um novo usuário</a>
         </div>
         <div class="mt-2 text-center">
-            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="btn-link">Reenvio de confirmação de Email</a>
+            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Reenvio de confirmação de Email</a>
         </div>
     </form>
     @if ((Model.ExternalLogins?.Count ?? 0) > 0)

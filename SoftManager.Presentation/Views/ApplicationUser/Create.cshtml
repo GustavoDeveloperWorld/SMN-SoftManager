@@ -1,0 +1,66 @@
+﻿@model SoftManager.Domain.Entities.ApplicationUser
+
+@{
+    ViewData["Title"] = "Criar Funcionário";
+}
+
+<div class="container mx-auto max-w-lg bg-white shadow-md rounded-lg p-6 mt-10">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">@ViewData["Title"]</h1>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm mb-4"></div>
+
+        <div class="mb-4">
+            <label asp-for="FullName" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+            <input asp-for="FullName" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o nome completo" />
+            <span asp-validation-for="FullName" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Email" class="block text-gray-700 font-medium mb-2">Email</label>
+            <input asp-for="Email" type="email" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o email" />
+            <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="BirthDate" class="block text-gray-700 font-medium mb-2">Data de Nascimento</label>
+            <input asp-for="BirthDate" type="date" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="BirthDate" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Mobile" class="block text-gray-700 font-medium mb-2">Celular</label>
+            <input asp-for="Mobile" type="tel" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o número de celular" />
+            <span asp-validation-for="Mobile" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Address" class="block text-gray-700 font-medium mb-2">Endereço</label>
+            <textarea asp-for="Address" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o endereço"></textarea>
+            <span asp-validation-for="Address" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="ProfilePictureFile" class="block text-gray-700 font-medium mb-2">Foto de Perfil</label>
+            <input asp-for="ProfilePictureFile" type="file" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="ProfilePictureFile" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
+            <label for="password" class="block text-gray-700 font-medium mb-2">Senha</label>
+            <input id="password" name="password" type="password"
+                   class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                   placeholder="Digite a senha" />
+            <span class="text-red-600 text-sm">@ViewData["PasswordError"]</span>
+        </div>
+        <br/>
+        <div class="flex justify-between">
+            <button type="submit" class="btn-primary w-1/2 mr-2">Salvar</button>
+            <a asp-action="Index" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

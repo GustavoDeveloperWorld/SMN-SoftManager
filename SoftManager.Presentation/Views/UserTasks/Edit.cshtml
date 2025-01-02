@@ -15,10 +15,10 @@
         <input type="hidden" asp-for="Id" />
 
         <div class="mb-4">
-            <label asp-for="Message" class="block text-gray-700 font-medium">Mensagem</label>
-            <input asp-for="Message" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
-            <span asp-validation-for="Message" class="text-red-500 mt-1 block"></span>
-        </div>
+            <label asp-for="Task" class="block text-gray-700 font-medium">Tarefa</label>
+            <input asp-for="Task" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="Task" class="text-red-500 mt-1 block"></span>
+        </div>        
 
         <div class="mb-4">
             <label asp-for="DueDate" class="block text-gray-700 font-medium">Data Limite</label>
@@ -43,9 +43,16 @@
             <span asp-validation-for="CompletionDate" class="text-red-500 mt-1 block"></span>
         </div>
 
+        <div class="mb-4">
+            <label asp-for="Message" class="block text-gray-700 font-medium">Mensagem</label>
+            <input asp-for="Message" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" />
+            <span asp-validation-for="Message" class="text-red-500 mt-1 block"></span>
+        </div>
+
+        <br/>
         <div class="flex items-center justify-between">
             <input type="submit" value="Salvar" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300" />
-            <a asp-action="Index" class="text-gray-600 hover:text-gray-900">Voltar para a Lista</a>
+            <a asp-action="Index" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Voltar para a Lista</a>
         </div>
     </form>
 </div>

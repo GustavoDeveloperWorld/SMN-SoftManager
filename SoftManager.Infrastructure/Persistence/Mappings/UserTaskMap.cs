@@ -17,9 +17,12 @@ namespace SoftManager.Infrastructure.Persistence.Mappings
 
             builder.HasKey(t => t.Id);
 
-            builder.Property(t => t.Message)
+            builder.Property(t => t.Task)
                 .IsRequired()
                 .HasMaxLength(500);
+
+            builder.Property(t => t.Message)
+                .HasMaxLength(2000);
 
             builder.Property(t => t.DueDate)
                 .IsRequired();

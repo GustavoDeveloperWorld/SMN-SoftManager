@@ -1,26 +1,30 @@
 ﻿@model IEnumerable<SoftManager.Domain.Entities.ApplicationUser>
 
-<div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Usuários</h1>
-    <table class="w-full table-auto border-collapse border border-gray-200">
-        <thead>
+<h1 class="text-2xl font-bold text-gray-800 mt-6 text-center">Usuários</h1>
+<p class="mt-4">
+    <a asp-action="Create" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Novo Usuário</a>
+</p>
+<br />
+<table class="min-w-full bg-white border border-gray-300 mt-6">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="border border-gray-300 px-4 py-2 text-left">Nome</th>
+            <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+            <th class="border border-gray-300 px-4 py-2 text-left">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
             <tr>
-                <th class="border border-gray-300 px-4 py-2 text-left">Nome</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Ações</th>
+                <td class="border border-gray-300 px-4 py-2">@user.FullName</td>
+                <td class="border border-gray-300 px-4 py-2">@user.Email</td>
+                <td class="border border-gray-300 px-4 py-2">
+                    <a asp-action="Edit" asp-route-id="@user.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@user.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Excluir</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2">@user.FullName</td>
-                    <td class="border border-gray-300 px-4 py-2">@user.Email</td>
-                    <td class="border border-gray-300 px-4 py-2">
-                        <a asp-action="Edit" asp-route-id="@user.Id" class="text-indigo-600 hover:underline">Editar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>

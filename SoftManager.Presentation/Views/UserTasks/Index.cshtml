@@ -13,8 +13,8 @@
     <thead class="bg-gray-100">
         <tr>
             <th class="border border-gray-300 px-4 py-2 text-left">
-                Mensagem
-            </th>
+                Tarefa
+            </th>           
             <th class="border border-gray-300 px-4 py-2 text-left">
                 Data Limite
             </th>
@@ -27,6 +27,9 @@
             <th class="border border-gray-300 px-4 py-2 text-left">
                 Data de Conclusão
             </th>
+            <th class="border border-gray-300 px-4 py-2 text-left">
+                Mensagem
+            </th>
             <th class="border border-gray-300 px-4 py-2 text-left"></th>
         </tr>
     </thead>
@@ -35,20 +38,31 @@
         {
             <tr>
                 <td class="border border-gray-300 px-4 py-2">
-                    @item.Message
-                </td>
+                    @item.Task
+                </td>               
                 <td class="border border-gray-300 px-4 py-2">
                     @item.DueDate.ToString("dd/MM/yyyy")
                 </td>
                 <td class="border border-gray-300 px-4 py-2">
                     @item.ApplicationUser.UserName
                 </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    @(item.IsCompleted ? "Sim" : "Não")
+                <td class="border border-gray-300 px-4 py-2 text-center">
+                    @if (item.IsCompleted)
+                    {
+                        <span class="text-green-500 text-xl">✔️</span>
+                    }
+                    else
+                    {
+                        <span class="text-gray-500 text-xl">✖️</span>
+                    }
                 </td>
                 <td class="border border-gray-300 px-4 py-2">
                     @(item.CompletionDate.HasValue ? item.CompletionDate.Value.ToString("dd/MM/yyyy") : "N/A")
                 </td>
+                <td class="border border-gray-300 px-4 py-2">
+                    @item.Message
+                </td>
+                <br/>
                 <td class="border border-gray-300 px-4 py-2">
                     <a asp-action="Edit" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Detalhes</a> |
