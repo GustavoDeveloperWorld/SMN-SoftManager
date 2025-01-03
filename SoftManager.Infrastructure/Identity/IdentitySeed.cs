@@ -19,8 +19,8 @@ namespace SoftManager.Infrastructure.Identity
                 }
             }
 
-            var defaultUserEmail = "admin@softmanager.com";
-            var defaultUserPassword = "Admin@123";
+            var defaultUserEmail = "oportunidades@smn.com.br";
+            var defaultUserPassword = "teste123";
 
             var userExists = await userManager.FindByEmailAsync(defaultUserEmail);
             if (userExists == null)

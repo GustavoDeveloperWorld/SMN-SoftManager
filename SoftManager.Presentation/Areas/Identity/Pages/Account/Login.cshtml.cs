@@ -1,6 +1,4 @@
-﻿// Licenciado à .NET Foundation sob um ou mais acordos.
-// A .NET Foundation licencia este arquivo para você sob a licença MIT.
-#nullable disable
+﻿#nullable disable
 
 using System;
 using System.Collections.Generic;
@@ -29,58 +27,26 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        /// <summary>
-        ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-        ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-        ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-        ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-        /// </summary>
         public string ReturnUrl { get; set; }
 
-        /// <summary>
-        ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-        ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-        /// </summary>
         [TempData]
         public string ErrorMessage { get; set; }
 
-        /// <summary>
-        ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-        ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-            ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-            /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "O campo 'Email' é obrigatório.")]
+            [EmailAddress(ErrorMessage = "Digite um endereço de email válido.")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-            ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-            /// </summary>
-            [Required]
-            [DataType(DataType.Password)]
+            [Required(ErrorMessage = "O campo 'Senha' é obrigatório.")]
+            [DataType(DataType.Password, ErrorMessage = "A senha não pode estar vazia.")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     Esta API suporta a infraestrutura padrão do ASP.NET Core Identity e não é destinada a ser usada
-            ///     diretamente no seu código. Esta API pode mudar ou ser removida em versões futuras.
-            /// </summary>
             [Display(Name = "Lembre-se de mim?")]
             public bool RememberMe { get; set; }
         }
@@ -94,7 +60,6 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
 
             returnUrl ??= Url.Content("~/");
 
-            // Limpa o cookie externo existente para garantir um processo de login limpo
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -110,8 +75,6 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // Isso não conta falhas de login para o bloqueio da conta
-                // Para habilitar falhas de senha para ativar o bloqueio da conta, defina lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {

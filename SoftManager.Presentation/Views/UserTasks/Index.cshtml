@@ -1,74 +1,80 @@
 ﻿@model IEnumerable<SoftManager.Domain.Entities.UserTask>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1 class="text-2xl font-bold text-gray-800 mt-6 text-center">Tarefas</h1>
 <p class="mt-4">
-    <a asp-action="Create" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Nova Tarefa</a>
+	<a asp-action="Create" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Nova Tarefa</a>
 </p>
 <br />
 <table class="min-w-full bg-white border border-gray-300 mt-6">
-    <thead class="bg-gray-100">
-        <tr>
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Tarefa
-            </th>           
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Data Limite
-            </th>
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Usuário
-            </th>
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Concluído
-            </th>
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Data de Conclusão
-            </th>
-            <th class="border border-gray-300 px-4 py-2 text-left">
-                Mensagem
-            </th>
-            <th class="border border-gray-300 px-4 py-2 text-left"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="border border-gray-300 px-4 py-2">
-                    @item.Task
-                </td>               
-                <td class="border border-gray-300 px-4 py-2">
-                    @item.DueDate.ToString("dd/MM/yyyy")
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    @item.ApplicationUser.UserName
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-center">
-                    @if (item.IsCompleted)
-                    {
-                        <span class="text-green-500 text-xl">✔️</span>
-                    }
-                    else
-                    {
-                        <span class="text-gray-500 text-xl">✖️</span>
-                    }
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    @(item.CompletionDate.HasValue ? item.CompletionDate.Value.ToString("dd/MM/yyyy") : "N/A")
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    @item.Message
-                </td>
-                <br/>
-                <td class="border border-gray-300 px-4 py-2">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Excluir</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead class="bg-gray-100">
+		<tr>
+			<th class="border border-gray-300 px-4 py-2 text-left">
+				Tarefa
+			</th>
+			<th class="border border-gray-300 px-4 py-2 text-left">
+				Data Limite
+			</th>
+			<th class="border border-gray-300 px-4 py-2 text-left">
+				Usuário
+			</th>
+			<th class="border border-gray-300 px-4 py-2 text-left">
+				Concluído
+			</th>
+			<th class="border border-gray-300 px-4 py-2 text-left">
+				Data de Conclusão
+			</th>
+			<th class="border border-gray-300 px-2 py-2 text-left">
+				Mensagem
+			</th>
+			<th class="border border-gray-300 px-6 py-2 text-left"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td class="border border-gray-300 px-4 py-2">
+					@item.Task
+				</td>
+				<td class="border border-gray-300 px-4 py-2">
+					@item.DueDate.ToString("dd/MM/yyyy")
+				</td>
+				<td class="border border-gray-300 px-4 py-2">
+					@item.ApplicationUser.UserName
+				</td>
+				<td class="border border-gray-300 px-4 py-2 text-center">
+					@if (item.IsCompleted)
+					{
+						<span class="text-green-500 text-xl">✔️</span>
+					}
+					else
+					{
+						<span class="text-gray-500 text-xl">✖️</span>
+					}
+				</td>
+				<td class="border border-gray-300 px-4 py-2">
+					@(item.CompletionDate.HasValue ? item.CompletionDate.Value.ToString("dd/MM/yyyy") : "N/A")
+				</td>
+				<td class="border border-gray-300 px-2 py-2">
+					@item.Message
+				</td>
+				<td class="border border-gray-300 px-6 py-2">
+					<div class="flex justify-start items-center gap-2">
+						<a asp-action="Edit" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Editar</a>
+						<span>|</span>
+						<a asp-action="Details" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Detalhes</a>
+						<span>|</span>
+						<a asp-action="Delete" asp-route-id="@item.Id" class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-300">Excluir</a>
+					</div>
+				</td>
+
+
+
+			</tr>
+		}
+	</tbody>
 </table>

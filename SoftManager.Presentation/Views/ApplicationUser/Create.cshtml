@@ -29,6 +29,12 @@
         </div>
 
         <div class="mb-4">
+            <label asp-for="PhoneNumber" class="block text-gray-700 font-medium mb-2">Telefone Fixo</label>
+            <input asp-for="PhoneNumber" type="tel" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o número de Telefone Fixo" />
+            <span asp-validation-for="PhoneNumber" class="text-red-600 text-sm"></span>
+        </div>
+
+        <div class="mb-4">
             <label asp-for="Mobile" class="block text-gray-700 font-medium mb-2">Celular</label>
             <input asp-for="Mobile" type="tel" class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-600 focus:outline-none" placeholder="Digite o número de celular" />
             <span asp-validation-for="Mobile" class="text-red-600 text-sm"></span>

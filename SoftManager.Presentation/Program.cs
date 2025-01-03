@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SoftManager.Application.Services;
 using SoftManager.Domain.Entities;
+using SoftManager.Domain.Interfaces;
 using SoftManager.Infrastructure.Identity;
 using SoftManager.Infrastructure.Persistence.Contexts;
 using SoftManager.Infrastructure.Settings;
@@ -19,10 +20,10 @@ builder.Services.AddDbContext<InfraDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 6;
     options.SignIn.RequireConfirmedAccount = false;
 })
@@ -40,7 +41,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ITempUserStorage, TempUserStorage>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 var app = builder.Build();
 
