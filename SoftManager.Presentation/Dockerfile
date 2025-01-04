@@ -4,9 +4,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+
+# Corrigindo o caminho para o arquivo csproj
 COPY ["SoftManager.Presentation/SoftManager.Presentation.csproj", "SoftManager.Presentation/"]
+
 RUN dotnet restore "SoftManager.Presentation/SoftManager.Presentation.csproj"
-COPY . . 
+COPY . .
 WORKDIR "/src/SoftManager.Presentation"
 RUN dotnet build "SoftManager.Presentation.csproj" -c Release -o /app/build
 
