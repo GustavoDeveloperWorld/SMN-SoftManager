@@ -12,11 +12,24 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+string connectionString;
 
-builder.Services.AddDbContext<InfraDbContext>(options =>
-    options.UseSqlServer(connectionString));
+if (builder.Environment.IsDevelopment())
+{
+    // Ambiente de desenvolvimento (SQL Server)
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    builder.Services.AddDbContext<InfraDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+else
+{
+    // Ambiente de produção (PostgreSQL)
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    builder.Services.AddDbContext<InfraDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
