@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SoftManager.Application.Customizations;
 using SoftManager.Application.Services;
 using SoftManager.Domain.Entities;
 using SoftManager.Domain.Interfaces;
@@ -41,6 +42,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 })
 .AddEntityFrameworkStores<InfraDbContext>()
+.AddErrorDescriber<PortugueseIdentityErrorDescriber>()
 .AddDefaultTokenProviders();
 
 builder.Services.AddAuthorization(options =>
@@ -54,7 +56,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ITempUserStorage, TempUserStorage>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailSender, EmailService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+
 
 var app = builder.Build();
 

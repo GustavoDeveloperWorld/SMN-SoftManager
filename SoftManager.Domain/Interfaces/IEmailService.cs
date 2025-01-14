@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace SoftManager.Domain.Interfaces
 {
@@ -14,7 +15,7 @@ namespace SoftManager.Domain.Interfaces
         Task SendEmailAsync(string email, string subject, string body);
     }
 
-    public class EmailService : IEmailService
+    public class EmailService : IEmailService, IEmailSender
     {
         private readonly IConfiguration _configuration;
 

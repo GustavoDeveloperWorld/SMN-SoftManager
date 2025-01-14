@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SoftManager.Application.Services;
 using SoftManager.Domain.Entities;
@@ -58,17 +60,18 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "O campo Email é obrigatório.")]
+            [EmailAddress(ErrorMessage = "O campo Email não é um endereço de email válido.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "O campo Senha é obrigatório.")]
             [StringLength(100, ErrorMessage = "O {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
 
+            [Required(ErrorMessage = "O campo Confirmar Senha é obrigatório.")]
             [DataType(DataType.Password)]
             [Display(Name = "Confirmar senha")]
             [Compare("Password", ErrorMessage = "A senha e a confirmação da senha não correspondem.")]
@@ -103,6 +106,16 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
                 user.ProfilePicturePath = Input.ApplicationUser.ProfilePicturePath;
                 user.IsManager = Input.ApplicationUser.IsManager;
 
+                if (user.IsManager)
+                {
+                    var existingManager = await _userManager.Users.FirstOrDefaultAsync(u => u.IsManager == true);
+                    if (existingManager != null)
+                    {
+                        user.ManagerId = existingManager.Id;
+
+                    }
+                }
+
                 // Armazenar temporariamente o e-mail e a senha para validar se tudo está correto
                 await _tempUserStorage.StoreTempUserAsync(Input.Email, Input.Password);
 
@@ -110,6 +123,12 @@ namespace SoftManager.Presentation.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if(user.IsManager)
+                    {
+                        var managerClaim = new Claim("IsManager", "true");
+                        await _userManager.AddClaimAsync(user, managerClaim);
+                    }
+
                     _logger.LogInformation("Usuário criou uma nova conta com senha.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
